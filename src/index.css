@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FAF9F5;
+    color: #1F1E1B;
+    overflow-x: hidden;
+    /* Soft warm cream base transition and tactile grain overlay */
+    background-image: 
+      radial-gradient(circle at 50% 0%, #FAF8F2 0%, #F5F1E7 40%, #FAF9F5 100%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Manrope', 'Space Grotesk', sans-serif;
+  }
+}
+
+/* Custom Premium Light & Matte Gold Accents */
+.gold-button {
+  background-color: #B89248;
+  color: #FDFBF7;
+  transition: all 0.2s ease;
+}
+
+.gold-button:hover {
+  background-color: #A37F38;
+  box-shadow: 0 4px 20px -4px rgba(184, 146, 72, 0.35);
+}
+
+.gold-glow-sm {
+  box-shadow: 0 4px 20px -4px rgba(184, 146, 72, 0.15);
+}
+
+.gold-border-subtle {
+  border-color: rgba(184, 146, 72, 0.25);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #A37F38 0%, #B89248 50%, #8C6A24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-card-light {
+  background: rgba(253, 251, 247, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 225, 218, 0.85);
+  box-shadow: 
+    0 1px 2px 0 rgba(31, 30, 27, 0.02),
+    0 8px 24px -6px rgba(31, 30, 27, 0.04);
+}
+
+.glass-card-light:hover {
+  border-color: rgba(184, 146, 72, 0.35);
+  box-shadow: 
+    0 1px 3px 0 rgba(184, 146, 72, 0.05),
+    0 16px 36px -8px rgba(31, 30, 27, 0.07);
+}
+
+.glass-card-elevated {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 251, 247, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(220, 215, 205, 0.7);
+  box-shadow: 
+    0 2px 4px 0 rgba(31, 30, 27, 0.02),
+    0 12px 32px -8px rgba(31, 30, 27, 0.05),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Subtle Warm Studio Ambient Surface */
+.bg-studio-ambient {
+  background-color: #FAF9F5;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245, 240, 230, 0.8), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(184, 146, 72, 0.03), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 90%, rgba(232, 239, 233, 0.5), transparent 70%);
+}
+
+.sage-badge {
+  background-color: #E8EFE9;
+  color: #2D5237;
+  border: 1px solid rgba(45, 82, 55, 0.15);
+}
+
+.gold-badge {
+  background-color: #F8F4EA;
+  color: #8C6A24;
+  border: 1px solid rgba(184, 146, 72, 0.25);
+}
+
+/* Soft Warm Grid Pattern for Light Theme */
+.bg-grid-pattern-light {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(31, 30, 27, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(31, 30, 27, 0.03) 1px, transparent 1px);
+}
+
+/* Custom Scrollbar for Light Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF9F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #DCD8CF;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B89248;
+}
+
