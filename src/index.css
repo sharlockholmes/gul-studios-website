@@ -120,3 +120,8 @@
   background: #B89248;
 }
 
+:focus-visible {
+  outline: 3px solid #B89248;
+  outline-offset: 3px;
+}
+

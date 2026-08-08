@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { 
   ArrowLeft, 
   BookOpen, 
@@ -24,6 +24,8 @@ import {
   Check
 } from 'lucide-react';
 import { HIFZ_MOCK_SURAHS, HIFZ_FAQS } from '../data/studioData';
+import { Seo } from './Seo';
+import { absoluteUrl } from '../config/site';
 
 interface HifzProductPageProps {
   onBackToHome: () => void;
@@ -39,6 +41,21 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
   const [showTestModal, setShowTestModal] = useState(false);
   const [testForm, setTestForm] = useState({ name: '', email: '', note: '' });
   const [testFormSubmitted, setTestFormSubmitted] = useState(false);
+  const testModalRef = useRef<HTMLDivElement>(null);
+  const previousFocus = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!showTestModal) return;
+    previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const onKeyDown = (event: KeyboardEvent) => event.key === 'Escape' && setShowTestModal(false);
+    document.addEventListener('keydown', onKeyDown);
+    const timer = window.setTimeout(() => testModalRef.current?.focus(), 0);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener('keydown', onKeyDown);
+      previousFocus.current?.focus();
+    };
+  }, [showTestModal]);
 
   const handleNextAyah = () => {
     if (currentAyah < selectedSurah.totalAyah) {
@@ -50,11 +67,7 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
 
   const handleTestSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setTestFormSubmitted(true);
-    setTimeout(() => {
-      setTestFormSubmitted(false);
-      setShowTestModal(false);
-    }, 2500);
+    window.location.href = 'mailto:gulstudiosapps@gmail.com?subject=H%C4%B1fz%20Kapalı%20Test%20Talebi';
   };
 
   const screenshotPlaceholders = [
@@ -82,6 +95,7 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
 
   return (
     <div className="min-h-screen bg-[#FAF9F5] text-[#1F1E1B] font-sans antialiased pt-20">
+      <Seo title="Hıfz | GÜL STUDIOS" description="Hıfz, Kur'an ezber ve takip sürecini desteklemek için tasarlanan dijital asistandır." path="/hifz" schema={{ '@context': 'https://schema.org', '@graph': [{ '@type': 'SoftwareApplication', name: 'Hıfz', applicationCategory: 'EducationalApplication', operatingSystem: 'Android', url: absoluteUrl('/hifz') }, { '@type': 'FAQPage', mainEntity: HIFZ_FAQS.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })) }] }} />
       
       {/* Sticky Top Bar for Product Page */}
       <div className="sticky top-0 z-40 bg-[#FAF9F5]/90 backdrop-blur-md border-b border-[#EAE6DF] py-3">
@@ -466,6 +480,7 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setIsPlaying(!isPlaying)}
+                    aria-label={isPlaying ? 'Dinlemeyi duraklat' : 'Dinlemeyi başlat'}
                     className="w-11 h-11 rounded-full gold-button flex items-center justify-center font-bold transition-transform active:scale-95 cursor-pointer shadow-xs"
                   >
                     {isPlaying ? <Pause className="w-5 h-5 fill-white" /> : <Play className="w-5 h-5 fill-white ml-0.5" />}
@@ -571,8 +586,10 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
                   key={idx}
                   className="glass-card-light rounded-2xl border border-[#E5E1D8] overflow-hidden transition-all bg-[#FDFBF7]"
                 >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      aria-expanded={isOpen}
+                      aria-controls={`hifz-faq-answer-${idx}`}
                     className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-sm text-[#1F1E1B] hover:text-[#B89248] cursor-pointer transition-colors"
                   >
                     <span>{faq.question}</span>
@@ -584,7 +601,7 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#57534E] border-t border-[#EAE6DF] leading-relaxed">
+                    <div id={`hifz-faq-answer-${idx}`} className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#57534E] border-t border-[#EAE6DF] leading-relaxed">
                       {faq.answer}
                     </div>
                   )}
@@ -644,9 +661,10 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
       {/* Closed Beta Test Request Modal */}
       {showTestModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1F1E1B]/60 backdrop-blur-md">
-          <div className="glass-card-light max-w-lg w-full p-6 sm:p-8 rounded-3xl border border-[#E5E1D8] relative bg-[#FDFBF7] shadow-2xl">
+          <div ref={testModalRef} role="dialog" aria-modal="true" aria-label="Hıfz kapalı test katılım talebi" tabIndex={-1} className="glass-card-light max-w-lg w-full p-6 sm:p-8 rounded-3xl border border-[#E5E1D8] relative bg-[#FDFBF7] shadow-2xl">
             <button
               onClick={() => setShowTestModal(false)}
+              aria-label="Test talep penceresini kapat"
               className="absolute top-4 right-4 text-[#78716C] hover:text-[#1F1E1B] p-1 rounded-lg cursor-pointer"
             >
               ✕
@@ -674,9 +692,11 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
               </div>
             ) : (
               <form onSubmit={handleTestSubmit} className="space-y-4 text-left">
+                <p className="rounded-xl border border-[#B89248]/30 bg-[#F8F4EA] p-3 text-xs text-[#57534E]">Bu form henüz veri göndermez. Kapalı test talebi için e-posta uygulamanız açılacaktır; bilgilerinizi oradan iletebilirsiniz.</p>
                 <div>
-                  <label className="block text-xs font-semibold text-[#44403C] mb-1">Adınız Soyadınız *</label>
+                  <label htmlFor="hifz-test-name" className="block text-xs font-semibold text-[#44403C] mb-1">Adınız Soyadınız</label>
                   <input
+                    id="hifz-test-name"
                     type="text"
                     required
                     placeholder="Ad Soyad"
@@ -687,8 +707,9 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#44403C] mb-1">Google Play E-Posta Adresiniz *</label>
+                  <label htmlFor="hifz-test-email" className="block text-xs font-semibold text-[#44403C] mb-1">Google Play E-Posta Adresiniz</label>
                   <input
+                    id="hifz-test-email"
                     type="email"
                     required
                     placeholder="ornek@gmail.com"
@@ -699,8 +720,9 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#44403C] mb-1">Not (İsteğe Bağlı)</label>
+                  <label htmlFor="hifz-test-note" className="block text-xs font-semibold text-[#44403C] mb-1">Not (İsteğe Bağlı)</label>
                   <textarea
+                    id="hifz-test-note"
                     rows={2}
                     placeholder="Hafızlık öğrenci durumu, kurum bilgisi vb."
                     value={testForm.note}
@@ -714,7 +736,7 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
                   className="w-full py-3.5 rounded-xl gold-button font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                 >
                   <Send className="w-4 h-4" />
-                  <span>Test Davetiyesi İsteyin</span>
+                  <span>E-posta ile talep oluştur</span>
                 </button>
               </form>
             )}
@@ -726,3 +748,5 @@ export const HifzProductPage: React.FC<HifzProductPageProps> = ({ onBackToHome, 
     </div>
   );
 };
+
+export default HifzProductPage;

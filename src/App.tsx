@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProductsGrid } from './components/ProductsGrid';
@@ -7,67 +8,66 @@ import { AboutSection } from './components/AboutSection';
 import { FaqAndContact } from './components/FaqAndContact';
 import { Footer } from './components/Footer';
 import { PrivacyPolicyModal } from './components/PrivacyPolicyModal';
-import { HifzProductPage } from './components/HifzProductPage';
+import { Seo } from './components/Seo';
+import { SITE, absoluteUrl } from './config/site';
 
-export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'hifz-detail'>('home');
+const HifzProductPage = lazy(() => import('./components/HifzProductPage'));
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Organization', name: SITE.name, url: absoluteUrl('/'), email: SITE.email },
+    { '@type': 'WebSite', name: SITE.name, url: absoluteUrl('/'), inLanguage: 'tr-TR' },
+  ],
+};
+
+function AppContent() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const currentView = location.pathname === '/hifz' ? 'hifz-detail' : 'home';
 
-  const handleInspectHifz = () => {
-    setCurrentView('hifz-detail');
+  const navigateHome = () => {
+    navigate('/');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNavigateHome = () => {
-    setCurrentView('home');
+  const openHifz = () => {
+    navigate('/hifz');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="min-h-screen bg-[#FAF9F5] text-[#1F1E1B] font-sans antialiased">
-      
-      {/* Sticky Header Navbar */}
-      <Navbar
-        onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
-        onNavigateHome={handleNavigateHome}
-        currentView={currentView}
-      />
+      <Navbar onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} onNavigateHome={navigateHome} currentView={currentView} />
 
-      {currentView === 'home' ? (
-        /* Main Home Vitrine View */
-        <main>
-          {/* 1. Hero Section (Brand Focused, No Phone Mockup) */}
-          <Hero onInspectHifz={handleInspectHifz} />
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Seo title="GÜL STUDIOS | Yazılımın Ötesinde, Fayda Üretiyoruz." schema={organizationSchema} />
+            <main>
+              <Hero onInspectHifz={openHifz} />
+              <ProductsGrid onInspectHifz={openHifz} />
+              <WhyUsSection />
+              <AboutSection />
+              <FaqAndContact />
+            </main>
+          </>
+        } />
+        <Route path="/hifz" element={
+          <Suspense fallback={<main className="min-h-screen pt-32 text-center text-sm text-[#57534E]">Hıfz sayfası yükleniyor…</main>}>
+            <HifzProductPage onBackToHome={navigateHome} onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} />
+          </Suspense>
+        } />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
 
-          {/* 2. Products Vitrine (Hıfz with 'İncele' + 'Kur'an Kursu Yönetim Sistemi' with 'Yakında') */}
-          <ProductsGrid onInspectHifz={handleInspectHifz} />
-
-          {/* 3. Neden GÜL STUDIOS? (4 Clean Principles) */}
-          <WhyUsSection />
-
-          {/* 4. Hakkımızda (Manifesto: Neden GÜL STUDIOS Var?) */}
-          <AboutSection />
-
-          {/* 5. İletişim & FAQ */}
-          <FaqAndContact />
-        </main>
-      ) : (
-        /* Dedicated Apple-Style Hıfz Product Page View */
-        <HifzProductPage
-          onBackToHome={handleNavigateHome}
-          onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
-        />
-      )}
-
-      {/* Footer */}
-      <Footer onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} />
-
-      {/* Google Play Compliant Privacy Policy Modal */}
-      <PrivacyPolicyModal
-        isOpen={isPrivacyModalOpen}
-        onClose={() => setIsPrivacyModalOpen(false)}
-      />
-
+      <Footer onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} onNavigateHome={navigateHome} currentView={currentView} />
+      <PrivacyPolicyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
     </div>
   );
+}
+
+export default function App() {
+  return <BrowserRouter><AppContent /></BrowserRouter>;
 }

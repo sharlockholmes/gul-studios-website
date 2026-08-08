@@ -19,20 +19,11 @@ export const FaqAndContact: React.FC = () => {
     subject: 'Genel Bilgi & İletişim',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [formNotice, setFormNotice] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        setContactForm({ name: '', email: '', subject: 'Genel Bilgi & İletişim', message: '' });
-      }, 4000);
-    }, 1200);
+    setFormNotice(true);
   };
 
   return (
@@ -81,6 +72,8 @@ export const FaqAndContact: React.FC = () => {
                   >
                     <button
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${idx}`}
                       className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-sm text-[#1F1E1B] hover:text-[#B89248] cursor-pointer transition-colors"
                     >
                       <span>{faq.question}</span>
@@ -92,7 +85,7 @@ export const FaqAndContact: React.FC = () => {
                     </button>
 
                     {isOpen && (
-                      <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#57534E] border-t border-[#EAE6DF] leading-relaxed">
+                      <div id={`faq-answer-${idx}`} className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#57534E] border-t border-[#EAE6DF] leading-relaxed">
                         {faq.answer}
                       </div>
                     )}
@@ -135,22 +128,12 @@ export const FaqAndContact: React.FC = () => {
                 </p>
               </div>
 
-              {submitted ? (
-                <div className="py-12 text-center space-y-3">
-                  <div className="w-14 h-14 rounded-full sage-badge mx-auto flex items-center justify-center">
-                    <Check className="w-7 h-7 text-[#2D5237]" />
-                  </div>
-                  <h4 className="text-xl font-bold text-[#1F1E1B]">Mesajınız İletildi!</h4>
-                  <p className="text-xs text-[#57534E]">
-                    24 saat içerisinde <strong>gulstudiosapps@gmail.com</strong> adresi üzerinden dönüş yapılacaktır.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 text-left">
+              <form onSubmit={handleSubmit} className="space-y-4 text-left">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-[#44403C] mb-1.5">Adınız Soyadınız *</label>
-                      <input
+                    <label htmlFor="contact-name" className="block text-xs font-semibold text-[#44403C] mb-1.5">Adınız Soyadınız *</label>
+                    <input
+                      id="contact-name"
                         type="text"
                         required
                         placeholder="Ad Soyad"
@@ -161,8 +144,9 @@ export const FaqAndContact: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-[#44403C] mb-1.5">E-Posta Adresiniz *</label>
-                      <input
+                    <label htmlFor="contact-email" className="block text-xs font-semibold text-[#44403C] mb-1.5">E-Posta Adresiniz *</label>
+                    <input
+                      id="contact-email"
                         type="email"
                         required
                         placeholder="gulstudiosapps@gmail.com"
@@ -174,8 +158,9 @@ export const FaqAndContact: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#44403C] mb-1.5">Konu</label>
+                    <label htmlFor="contact-subject" className="block text-xs font-semibold text-[#44403C] mb-1.5">Konu</label>
                     <input
+                      id="contact-subject"
                       type="text"
                       value={contactForm.subject}
                       onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
@@ -184,8 +169,9 @@ export const FaqAndContact: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#44403C] mb-1.5">Mesajınız *</label>
+                    <label htmlFor="contact-message" className="block text-xs font-semibold text-[#44403C] mb-1.5">Mesajınız *</label>
                     <textarea
+                      id="contact-message"
                       required
                       rows={4}
                       placeholder="Mesajınızı veya sorunuzu yazın..."
@@ -197,25 +183,23 @@ export const FaqAndContact: React.FC = () => {
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl gold-button font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm disabled:opacity-50"
+                    className="w-full py-3.5 rounded-xl gold-button font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                   >
-                    {isSubmitting ? (
-                      <span>İletiliyor...</span>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        <span>Mesajı İlet</span>
-                      </>
-                    )}
+                    <Send className="w-4 h-4" />
+                    <span>İletişim seçeneğini göster</span>
                   </button>
+
+                  {formNotice && (
+                    <div role="status" className="rounded-xl border border-[#B89248]/30 bg-[#F8F4EA] p-4 text-xs text-[#57534E] leading-relaxed">
+                      Bu formun gönderim altyapısı henüz aktif değil; bilgileriniz kaydedilmedi veya iletilmedi. Bize <a className="font-bold text-[#8C6A24] underline" href={`mailto:gulstudiosapps@gmail.com?subject=${encodeURIComponent(contactForm.subject)}`}>gulstudiosapps@gmail.com</a> üzerinden ulaşabilirsiniz.
+                    </div>
+                  )}
 
                   <p className="text-[11px] text-[#78716C] text-center flex items-center justify-center gap-1">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#2D5237]" />
                     <span>Doğrudan geliştiriciye iletilmektedir.</span>
                   </p>
-                </form>
-              )}
+              </form>
 
             </div>
           </div>

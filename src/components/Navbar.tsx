@@ -27,7 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -113,6 +113,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
               className="p-2.5 rounded-xl border border-[#E5E1D8] bg-[#FAF8F5] text-[#1F1E1B] shadow-xs cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -124,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-[#E5E1D8] bg-[#FAF9F5]/98 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-4 shadow-lg">
+        <div id="mobile-navigation" className="lg:hidden border-b border-[#E5E1D8] bg-[#FAF9F5]/98 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-4 shadow-lg">
           <div className="grid grid-cols-2 gap-2 pt-2">
             {navLinks.map((link) => {
               const Icon = link.icon;

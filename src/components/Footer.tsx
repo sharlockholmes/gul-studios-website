@@ -4,11 +4,17 @@ import { ArrowUp, Mail, ShieldCheck } from 'lucide-react';
 
 interface FooterProps {
   onOpenPrivacyModal: () => void;
+  onNavigateHome: () => void;
+  currentView: 'home' | 'hifz-detail';
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal, onNavigateHome, currentView }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleHomeLink = () => {
+    if (currentView !== 'home') onNavigateHome();
   };
 
   return (
@@ -42,10 +48,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
           <div className="md:col-span-4 space-y-3 text-xs">
             <h4 className="font-mono text-[#1F1E1B] uppercase tracking-wider text-[11px] font-bold">Hızlı Bağlantılar</h4>
             <ul className="space-y-2">
-              <li><a href="#products" className="hover:text-[#B89248] transition-colors">Hıfz & Ürünlerimiz</a></li>
-              <li><a href="#why-us" className="hover:text-[#B89248] transition-colors">Neden GÜL STUDIOS?</a></li>
-              <li><a href="#about" className="hover:text-[#B89248] transition-colors">Hakkımızda (Manifesto)</a></li>
-              <li><a href="#contact" className="hover:text-[#B89248] transition-colors">İletişim Formu</a></li>
+              <li><a href="#products" onClick={handleHomeLink} className="hover:text-[#B89248] transition-colors">Hıfz & Ürünlerimiz</a></li>
+              <li><a href="#why-us" onClick={handleHomeLink} className="hover:text-[#B89248] transition-colors">Neden GÜL STUDIOS?</a></li>
+              <li><a href="#about" onClick={handleHomeLink} className="hover:text-[#B89248] transition-colors">Hakkımızda (Manifesto)</a></li>
+              <li><a href="#contact" onClick={handleHomeLink} className="hover:text-[#B89248] transition-colors">İletişim Formu</a></li>
             </ul>
           </div>
 
@@ -83,6 +89,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacyModal }) => {
             <span>•</span>
             <button
               onClick={scrollToTop}
+              aria-label="Sayfa başına dön"
               className="p-2 rounded-xl bg-[#FAF8F5] hover:bg-[#F2EFE9] border border-[#E5E1D8] text-[#1F1E1B] transition-colors cursor-pointer shadow-xs"
               title="Sayfa Başına Dön"
             >
