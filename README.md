@@ -54,10 +54,10 @@ Deploy sağlayıcınızın, SPA için bilinmeyen yolları `index.html` dosyasın
 `VITE_SITE_URL`, canonical URL, structured data ve route bazlı Open Graph URL'leri için kullanılır.
 
 ```bash
-VITE_SITE_URL=https://www.ornekalanadiniz.com
+VITE_SITE_URL=https://gulstudios.dev
 ```
 
-Değer verilmezse uygulama geçici olarak `https://gulstudios.example` kullanır. Production deploy öncesinde bu değeri, `index.html`, `public/robots.txt` ve `public/sitemap.xml` içindeki geçici alan adını gerçek alan adınızla değiştirin. Ayrıca `/og-image.jpg` yoluna gerçek bir Open Graph görseli ekleyin.
+Değer verilmezse uygulama varsayılan olarak `https://gulstudios.dev` kullanır. Production ortamında bu değişkeni aynı değerle tanımlayın; alan adı ileride değişirse `index.html`, `public/robots.txt` ve `public/sitemap.xml` ile birlikte güncelleyin. Ayrıca `/og-image.jpg` yoluna gerçek bir Open Graph görseli ekleyin.
 
 Bu proje istemci paketine gizli API anahtarı koymaz. İleride sunucu entegrasyonu eklenirse anahtarlar yalnızca sunucu/hosting secret yöneticisinde tutulmalıdır.
 

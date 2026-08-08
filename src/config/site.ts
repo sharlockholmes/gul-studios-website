@@ -1,4 +1,4 @@
-export const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://gulstudios.example';
+export const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://gulstudios.dev';
 
 export const SITE = {
   name: 'GÜL STUDIOS',

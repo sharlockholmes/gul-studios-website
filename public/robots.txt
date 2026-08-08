@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gulstudios.example/sitemap.xml
+Sitemap: https://gulstudios.dev/sitemap.xml
