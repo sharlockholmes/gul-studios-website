@@ -57,7 +57,7 @@ Deploy sağlayıcınızın, SPA için bilinmeyen yolları `index.html` dosyasın
 VITE_SITE_URL=https://gulstudios.dev
 ```
 
-Değer verilmezse uygulama varsayılan olarak `https://gulstudios.dev` kullanır. Production ortamında bu değişkeni aynı değerle tanımlayın; alan adı ileride değişirse `index.html`, `public/robots.txt` ve `public/sitemap.xml` ile birlikte güncelleyin. Ayrıca `/og-image.jpg` yoluna gerçek bir Open Graph görseli ekleyin.
+Değer verilmezse uygulama varsayılan olarak `https://gulstudios.dev` kullanır. Production ortamında bu değişkeni aynı değerle tanımlayın; alan adı ileride değişirse `index.html`, `public/robots.txt` ve `public/sitemap.xml` ile birlikte güncelleyin. Mevcut marka görseli `/og-image.png` yolunda sunulur.
 
 Bu proje istemci paketine gizli API anahtarı koymaz. İleride sunucu entegrasyonu eklenirse anahtarlar yalnızca sunucu/hosting secret yöneticisinde tutulmalıdır.
 

@@ -9,6 +9,8 @@ import { FaqAndContact } from './components/FaqAndContact';
 import { Footer } from './components/Footer';
 import { PrivacyPolicyModal } from './components/PrivacyPolicyModal';
 import { Seo } from './components/Seo';
+import { ScrollRevealController } from './components/ScrollRevealController';
+import { GlobalDecorativeBackground } from './components/GlobalDecorativeBackground';
 import { SITE, absoluteUrl } from './config/site';
 
 const HifzProductPage = lazy(() => import('./components/HifzProductPage'));
@@ -16,7 +18,7 @@ const HifzProductPage = lazy(() => import('./components/HifzProductPage'));
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'Organization', name: SITE.name, url: absoluteUrl('/'), email: SITE.email },
+    { '@type': 'Organization', name: SITE.name, description: SITE.description, url: absoluteUrl('/'), email: SITE.email, address: { '@type': 'PostalAddress', addressLocality: 'İstanbul', addressCountry: 'TR' } },
     { '@type': 'WebSite', name: SITE.name, url: absoluteUrl('/'), inLanguage: 'tr-TR' },
   ],
 };
@@ -38,14 +40,16 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] text-[#1F1E1B] font-sans antialiased">
+    <div className="site-shell">
+      <ScrollRevealController />
       <Navbar onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} onNavigateHome={navigateHome} currentView={currentView} />
 
       <Routes>
         <Route path="/" element={
           <>
             <Seo title="GÜL STUDIOS | Yazılımın Ötesinde, Fayda Üretiyoruz." schema={organizationSchema} />
-            <main>
+            <main className="home-page-canvas">
+              <GlobalDecorativeBackground />
               <Hero onInspectHifz={openHifz} />
               <ProductsGrid onInspectHifz={openHifz} />
               <WhyUsSection />
@@ -55,7 +59,7 @@ function AppContent() {
           </>
         } />
         <Route path="/hifz" element={
-          <Suspense fallback={<main className="min-h-screen pt-32 text-center text-sm text-[#57534E]">Hıfz sayfası yükleniyor…</main>}>
+          <Suspense fallback={<main className="min-h-screen pt-32 text-center text-sm text-[#57534E]">HIFZ sayfası yükleniyor…</main>}>
             <HifzProductPage onBackToHome={navigateHome} onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)} />
           </Suspense>
         } />

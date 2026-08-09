@@ -29,6 +29,7 @@ export const Seo: React.FC<SeoProps> = ({
     setMeta('meta[property="og:url"]', 'property', url);
     setMeta('meta[name="twitter:title"]', 'name', title);
     setMeta('meta[name="twitter:description"]', 'name', description);
+    setMeta('meta[name="twitter:url"]', 'name', url);
 
     const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (canonical) canonical.href = url;

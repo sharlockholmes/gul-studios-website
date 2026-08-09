@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Menu, 
-  X, 
-  BookOpen, 
-  Layers, 
-  PhoneCall,
-  Info,
-  ShieldCheck
-} from 'lucide-react';
+import { Info, Layers, Menu, PhoneCall, ShieldCheck, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import type { MouseEvent } from 'react';
+import studioLogo from '../assets/images/gul-studios-logo.png.png';
 
 interface NavbarProps {
   onOpenPrivacyModal: () => void;
@@ -15,147 +9,118 @@ interface NavbarProps {
   currentView?: 'home' | 'hifz-detail';
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ 
-  onOpenPrivacyModal,
-  onNavigateHome,
-  currentView = 'home'
-}) => {
+const links = [
+  { name: 'Ürünlerimiz', href: '#products', icon: Layers },
+  { name: 'Neden Biz?', href: '#why-us', icon: ShieldCheck },
+  { name: 'Yaklaşımımız', href: '#approach', icon: Info },
+  { name: 'İletişim', href: '#contact', icon: PhoneCall },
+];
+
+export const Navbar = ({ onOpenPrivacyModal, onNavigateHome, currentView = 'home' }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const update = () => setScrolled(window.scrollY > 20);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
-  const navLinks = [
-    { name: 'Ürünlerimiz', href: '#products', icon: BookOpen },
-    { name: 'Neden Biz?', href: '#why-us', icon: Layers },
-    { name: 'Manifesto', href: '#about', icon: Info },
-    { name: 'İletişim', href: '#contact', icon: PhoneCall },
-  ];
-
-  const handleLinkClick = (href: string) => {
-    setMobileMenuOpen(false);
-    if (currentView !== 'home' && onNavigateHome) {
-      onNavigateHome();
-      setTimeout(() => {
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+  useEffect(() => {
+    if (currentView !== 'home' || !('IntersectionObserver' in window)) {
+      setActiveHref(null);
+      return;
     }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveHref(`#${visible.target.id}`);
+      },
+      { rootMargin: '-32% 0px -58% 0px', threshold: [0, 0.1, 0.3] },
+    );
+
+    links.forEach(({ href }) => {
+      const section = document.querySelector(href);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, [currentView]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => event.key === 'Escape' && setMobileMenuOpen(false);
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [mobileMenuOpen]);
+
+  const goHome = () => {
+    setMobileMenuOpen(false);
+    onNavigateHome?.();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLink = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    setMobileMenuOpen(false);
+    if (currentView === 'home') return;
+    event.preventDefault();
+    onNavigateHome?.();
+    window.setTimeout(() => document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }), 120);
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#FAF9F5]/90 backdrop-blur-md border-b border-[#E5E1D8] shadow-xs py-3'
-          : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
-          
-          {/* Brand Logo */}
-          <button 
-            onClick={() => {
-              if (onNavigateHome) onNavigateHome();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="flex items-center gap-3 group text-left cursor-pointer"
-          >
-            <div className="w-9 h-9 rounded-xl bg-[#1F1E1B] text-[#FDFBF7] flex items-center justify-center font-display font-extrabold text-sm tracking-widest shadow-xs group-hover:bg-[#B89248] transition-colors">
-              GÜL
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display font-extrabold text-base tracking-wider text-[#1F1E1B] group-hover:text-[#B89248] transition-colors uppercase">
-                GÜL STUDIOS
-              </span>
-              <span className="text-[10px] font-mono tracking-widest text-[#78716C] -mt-1 uppercase">
-                Bağımsız Yazılım Stüdyosu
-              </span>
-            </div>
-          </button>
+    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+      <div className="site-header__inner">
+        <button type="button" onClick={goHome} className="brand-lockup" aria-label="GÜL STUDIOS ana sayfa">
+          <span className="brand-lockup__mark brand-lockup__mark--logo" aria-hidden="true"><img src={studioLogo} alt="" width={64} height={64} /></span>
+          <span className="brand-lockup__name">GÜL<small>STUDIOS</small></span>
+          <span className="brand-lockup__descriptor">Bağımsız<br />Yazılım Stüdyosu</span>
+        </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 rounded-full px-4 py-1.5 border border-[#E5E1D8] bg-[#FDFBF7]/90 backdrop-blur-md shadow-xs">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => handleLinkClick(link.href)}
-                className="px-4 py-1.5 text-xs font-semibold text-[#57534E] hover:text-[#B89248] hover:bg-[#F5F2EA] rounded-full transition-all"
-              >
-                {link.name}
-              </a>
-            ))}
-            <button
-              onClick={onOpenPrivacyModal}
-              className="px-4 py-1.5 text-xs font-semibold text-[#57534E] hover:text-[#B89248] hover:bg-[#F5F2EA] rounded-full transition-all cursor-pointer"
+        <nav className="site-header__nav" aria-label="Ana navigasyon">
+          {links.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={(event) => handleLink(event, link.href)}
+              className={`nav-editorial-link ${activeHref === link.href ? 'is-active' : ''}`}
+              aria-current={activeHref === link.href ? 'page' : undefined}
             >
-              Gizlilik
-            </button>
-          </nav>
+              {link.name}
+            </a>
+          ))}
+          <button type="button" onClick={onOpenPrivacyModal} className="nav-editorial-link">Gizlilik</button>
+        </nav>
 
-          {/* Right Action Badge / Store Link */}
-          <div className="hidden md:flex items-center gap-3">
-            <span className="flex items-center gap-2 px-3.5 py-1.5 rounded-full sage-badge text-xs font-semibold">
-              <span className="w-2 h-2 rounded-full bg-[#2D5237] animate-pulse"></span>
-              <span>Ürün Odaklı Stüdyo</span>
-            </span>
-          </div>
+        <span className="studio-status"><i aria-hidden="true" />Ürün Odaklı Stüdyo</span>
 
-          {/* Mobile Menu Toggle */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
-              aria-expanded={mobileMenuOpen}
-              aria-controls="mobile-navigation"
-              className="p-2.5 rounded-xl border border-[#E5E1D8] bg-[#FAF8F5] text-[#1F1E1B] shadow-xs cursor-pointer"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-
-        </div>
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen((value) => !value)}
+          aria-label={mobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-navigation"
+          className="mobile-menu-toggle"
+        >
+          {mobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div id="mobile-navigation" className="lg:hidden border-b border-[#E5E1D8] bg-[#FAF9F5]/98 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-4 shadow-lg">
-          <div className="grid grid-cols-2 gap-2 pt-2">
-            {navLinks.map((link) => {
-              const Icon = link.icon;
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => handleLinkClick(link.href)}
-                  className="flex items-center gap-2.5 px-3 py-3 rounded-xl text-xs font-semibold text-[#1F1E1B] bg-[#FAF8F5] border border-[#E5E1D8] shadow-xs active:border-[#B89248]"
-                >
-                  <Icon className="w-4 h-4 text-[#B89248]" />
-                  <span>{link.name}</span>
-                </a>
-              );
-            })}
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenPrivacyModal();
-              }}
-              className="flex items-center gap-2.5 px-3 py-3 rounded-xl text-xs font-semibold text-[#1F1E1B] bg-[#FAF8F5] border border-[#E5E1D8] shadow-xs text-left cursor-pointer col-span-2"
-            >
-              <ShieldCheck className="w-4 h-4 text-[#2D5237]" />
-              <span>Gizlilik Politikası</span>
-            </button>
-          </div>
+      <div id="mobile-navigation" className={`mobile-navigation ${mobileMenuOpen ? 'is-open' : ''}`} aria-hidden={!mobileMenuOpen}>
+        <div>
+          {links.map(({ name, href, icon: Icon }) => (
+            <a key={name} href={href} onClick={(event) => handleLink(event, href)} tabIndex={mobileMenuOpen ? 0 : -1}>
+              <Icon aria-hidden="true" />{name}
+            </a>
+          ))}
+          <button type="button" tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => { setMobileMenuOpen(false); onOpenPrivacyModal(); }}>
+            <ShieldCheck aria-hidden="true" />Gizlilik Politikası
+          </button>
         </div>
-      )}
+      </div>
     </header>
   );
 };

@@ -5,7 +5,7 @@ export interface Product {
   description: string;
   category: string;
   badge?: string;
-  status: 'Yayında' | 'Beta' | 'Geliştirilmede';
+  status: 'Yayında' | 'Beta' | 'Kapalı Test' | 'Planlanıyor';
   iconName: string;
   stats?: { label: string; value: string }[];
   features: string[];

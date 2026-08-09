@@ -1,89 +1,85 @@
-import React from 'react';
-import { 
-  Sparkles, 
-  ArrowRight, 
-  BookOpen, 
-  ShieldCheck,
-  CheckCircle2,
-  Sparkle,
-  Compass,
-  Award
-} from 'lucide-react';
+import { ArrowRight, BookOpen, Compass, Gem, Leaf, ShieldCheck, Sparkles } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { HifzFeatureArt } from './HifzFeatureArt';
 
 interface HeroProps {
   onInspectHifz: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onInspectHifz }) => {
+const pillars = [
+  { icon: Gem, title: 'Odaklı Ürünler', copy: 'Tek bir ihtiyacı çözmek için tasarlanan ürünler.' },
+  { icon: Sparkles, title: 'Temiz & Modern', copy: 'Gereksiz adımları azaltan arayüzler.' },
+  { icon: ShieldCheck, title: 'Uzun Ömürlü', copy: 'Bakımı ve güncellenmesi kolay ürünler.' },
+  { icon: Leaf, title: 'İlham Veren Deneyim', copy: 'Dikkat dağıtmayan, anlaşılır kullanım.' },
+];
+
+export const Hero = ({ onInspectHifz }: HeroProps) => {
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let frame = 0;
+
+    const update = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const bounds = stage.getBoundingClientRect();
+        const distance = window.innerHeight / 2 - (bounds.top + bounds.height / 2);
+        const offset = Math.max(-12, Math.min(12, distance * 0.035));
+        stage.style.setProperty('--hero-parallax', `${offset.toFixed(2)}px`);
+      });
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
   return (
-    <section id="hero" className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden bg-studio-ambient bg-grid-pattern-light border-b border-[#EAE6DF]">
-      
-      {/* Soft Ambient Studio Lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-radial from-[#F5F1E6] via-[#FAF8F3]/50 to-transparent blur-[120px] rounded-full pointer-events-none opacity-90"></div>
-      <div className="absolute top-1/3 right-12 w-[400px] h-[300px] bg-[#B89248]/5 blur-[100px] rounded-full pointer-events-none"></div>
-      <div className="absolute top-1/2 left-10 w-[450px] h-[350px] bg-[#E8EFE9]/60 blur-[130px] rounded-full pointer-events-none"></div>
+    <>
+      <section id="hero" className="hero-editorial">
+        <div className="hero-paper-texture" aria-hidden="true" />
+        <div className="hero-editorial__pattern" aria-hidden="true" />
+        <div className="hero-lattice" aria-hidden="true" />
+        <div className="hero-silhouette" aria-hidden="true"><span /><span /><span /><span /><span /></div>
+        <div className="hero-orbit-dots" aria-hidden="true" />
 
-      {/* Ultra-Low Opacity Geometric Layering (Depth Accent) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[580px] rounded-full border border-[#B89248]/15 pointer-events-none opacity-30"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[760px] h-[760px] rounded-[70px] rotate-45 border border-[#1F1E1B]/08 pointer-events-none opacity-25"></div>
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-10">
-        
-        {/* Brand Tagline Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full sage-badge text-xs font-semibold gold-glow-sm">
-          <Sparkles className="w-3.5 h-3.5 text-[#B89248]" />
-          <span>GÜL STUDIOS — Bağımsız Dijital Ürün Stüdyosu</span>
-        </div>
-
-        {/* Brand Headline & Purpose Statement */}
-        <div className="space-y-6 max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-[#1F1E1B] leading-[1.12]">
-            Yazılımın Ötesinde, <br />
-            <span className="text-[#B89248]">Fayda Üretiyoruz.</span>
-          </h1>
-
-          <p className="text-lg sm:text-2xl text-[#57534E] font-medium leading-relaxed max-w-3xl mx-auto">
-            İnsanların gerçek problemlerini çözen kaliteli ve uzun ömürlü dijital ürünler geliştiriyoruz.
-          </p>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="#products"
-            className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-wider gold-button shadow-md flex items-center justify-center gap-2.5 cursor-pointer transition-transform hover:-translate-y-0.5"
-          >
-            <BookOpen className="w-4 h-4" />
-            <span>Ürünlerimizi İncele</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
-
-          <a
-            href="#about"
-            className="w-full sm:w-auto px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-[#FAF8F5] hover:bg-[#F2EFE9] text-[#1F1E1B] border border-[#E5E1D8] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-          >
-            <Compass className="w-4 h-4 text-[#B89248]" />
-            <span>Hakkımızda</span>
-          </a>
-        </div>
-
-        {/* Brand Pillars / Trust Guarantees */}
-        <div className="pt-12 border-t border-[#EAE6DF] max-w-3xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-6 text-xs font-medium text-[#78716C]">
-          <div className="flex items-center justify-center gap-2 bg-[#FDFBF7]/80 p-3 rounded-2xl border border-[#E5E1D8]">
-            <ShieldCheck className="w-4 h-4 text-[#B89248] shrink-0" />
-            <span>Kendi Ürünlerimiz</span>
+        <div className="hero-editorial__inner">
+          <div className="hero-copy">
+            <div className="animate-rise hero-eyebrow"><Sparkles aria-hidden="true" />GÜL STUDIOS — Bağımsız Dijital Ürün Stüdyosu</div>
+            <h1 className="animate-rise animate-rise--2">Yazılımın Ötesinde,<br /><span>Fayda Üretiyoruz.</span></h1>
+            <p className="animate-rise animate-rise--3">Tek bir ihtiyaca odaklanan, kullanımı ve bakımı sade kalan dijital ürünler geliştiriyoruz.</p>
+            <div className="animate-rise animate-rise--4 hero-actions">
+              <a href="#products" className="editorial-button editorial-button--primary"><BookOpen aria-hidden="true" />Ürünlerimizi İncele <ArrowRight aria-hidden="true" /></a>
+              <a href="#approach" className="editorial-button editorial-button--outline"><Compass aria-hidden="true" />Hakkımızda</a>
+            </div>
           </div>
-          <div className="flex items-center justify-center gap-2 bg-[#FDFBF7]/80 p-3 rounded-2xl border border-[#E5E1D8]">
-            <CheckCircle2 className="w-4 h-4 text-[#2D5237] shrink-0" />
-            <span>Odaklı & Sade UI</span>
-          </div>
-          <div className="flex items-center justify-center gap-2 bg-[#FDFBF7]/80 p-3 rounded-2xl border border-[#E5E1D8] col-span-2 sm:col-span-1">
-            <Award className="w-4 h-4 text-[#B89248] shrink-0" />
-            <span>Uzun Ömürlü Kalite</span>
+
+          <div ref={stageRef} className="hero-hifz-stage">
+            <div className="hero-hifz-stage__disc" aria-hidden="true" />
+            <div className="hero-hifz-stage__arc" aria-hidden="true" />
+            <HifzFeatureArt className="hero-product-render" />
+            <button type="button" onClick={onInspectHifz} className="hero-hifz-stage__label">HIFZ Uygulamasını Keşfet <ArrowRight aria-hidden="true" /></button>
           </div>
         </div>
+      </section>
 
-      </div>
-    </section>
+      <section className="feature-band-wrap" aria-label="GÜL STUDIOS çalışma ilkeleri">
+        <div className="feature-band">
+          {pillars.map(({ icon: Icon, title, copy }, index) => (
+            <div key={title} className="feature-band__item" data-reveal style={{ transitionDelay: `${index * 90}ms` }}>
+              <Icon className="feature-band__icon" aria-hidden="true" />
+              <div><h2>{title}</h2><p>{copy}</p></div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
   );
 };
