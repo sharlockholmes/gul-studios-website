@@ -338,6 +338,15 @@
   text-align: left;
 }
 
+.brand-lockup__full-logo {
+  display: block;
+  width: 8.85rem;
+  height: auto;
+  max-height: 3.25rem;
+  object-fit: contain;
+  object-position: left center;
+}
+
 .brand-lockup__mark {
   position: relative;
   display: grid;
@@ -955,25 +964,21 @@
   top: 50%;
   left: 50%;
   z-index: 1;
-  width: 18rem;
-  height: 18rem;
-  border-radius: 2rem;
+  width: 21rem;
+  height: auto;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  filter: brightness(0) invert(1);
   transform: translate(-50%, -50%);
 }
-.hifz-feature-art--hero .hifz-feature-art__studio-wordmark {
-  position: relative;
-  z-index: 2;
-  font-family: var(--font-display) !important;
-  font-size: 4.7rem !important;
-  font-weight: 650;
-  font-style: italic;
-  letter-spacing: .07em !important;
-  line-height: .82;
-  text-shadow: 0 3px 18px rgba(5, 20, 17, .65);
-  transform: translateY(9.5rem) rotate(-8deg);
+
+.hifz-feature-art--hero .hifz-feature-art__studio-logo img {
+  transform-origin: center;
+  animation: studio-logo-reveal 950ms cubic-bezier(.2, .75, .25, 1) 180ms both;
 }
-.hifz-feature-art--hero .hifz-feature-art__studio-wordmark span { color: #e1b65c; }
-.hifz-feature-art--hero .hifz-feature-art__studio-wordmark span:last-child { font-family: inherit; font-size: 1em; font-style: inherit; font-weight: inherit; letter-spacing: .07em; }
 
 .hifz-feature-art--hero .hifz-feature-art__cards article:nth-child(1) { top: 11%; left: 5%; }
 .hifz-feature-art--hero .hifz-feature-art__cards article:nth-child(2) { top: 19%; right: 1%; }
@@ -2115,6 +2120,7 @@
 }
 
 .brand-lockup--footer { color: var(--paper); }
+.brand-lockup--footer .brand-lockup__full-logo { width: 9.5rem; max-height: 3.9rem; filter: brightness(0) invert(1); }
 .brand-lockup--footer .brand-lockup__name { border-right: 0; }
 .brand-lockup--footer .brand-lockup__mark { border-color: var(--gold-soft); color: var(--gold-soft); }
 
@@ -2632,6 +2638,21 @@
   to { stroke-dashoffset: -116; }
 }
 
+@keyframes studio-logo-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(.88);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .animate-rise { animation: rise-in .72s backwards; }
 .animate-rise--2 { animation-delay: .1s; }
 .animate-rise--3 { animation-delay: .2s; }
@@ -2725,8 +2746,7 @@
   .hero-product-render { right: 0; height: 112%; max-width: 96%; }
   .hero-hifz-stage__label { bottom: 0; left: 0; }
   .hifz-feature-art--hero .hifz-feature-art__core { top: 4%; width: 20rem; height: 21rem; transform: translateX(-50%); }
-  .hifz-feature-art--hero .hifz-feature-art__studio-logo { width: 13rem; height: 13rem; border-radius: 1.45rem; }
-  .hifz-feature-art--hero .hifz-feature-art__studio-wordmark { font-size: 3.45rem !important; letter-spacing: .06em !important; transform: translateY(6.5rem) rotate(-7deg); }
+  .hifz-feature-art--hero .hifz-feature-art__studio-logo { width: 15rem; height: auto; border-radius: 0; }
   .hifz-feature-art--hero .hifz-feature-art__cards article { padding: .45rem .5rem; }
   .hifz-feature-art--hero .hifz-feature-art__cards article b { font-size: .5rem; }
   .hifz-feature-art--detail .hifz-feature-art__core { width: 10.8rem; height: 10.8rem; }
@@ -2795,6 +2815,7 @@
   .global-flow-line--hifz-hero { --flow-shift-x: -20%; opacity: .62; }
   .global-flow-line--hifz-lower { --flow-shift-x: 34%; opacity: .54; }
   .brand-lockup__descriptor { display: none; }
+  .brand-lockup__full-logo { width: 7.5rem; max-height: 2.8rem; }
   .brand-lockup__name { border-right: 0; }
   .brand-lockup__mark { width: 2.45rem; height: 2.45rem; }
   .hero-copy h1 { font-size: 3.05rem; }
@@ -2803,8 +2824,7 @@
   .hero-actions .editorial-button { width: 100%; }
   .hero-hifz-stage { height: 24rem; }
   .hifz-feature-art--hero .hifz-feature-art__core { top: 9%; width: 15rem; height: 16.5rem; padding: .5rem; transform: translateX(-50%); }
-  .hifz-feature-art--hero .hifz-feature-art__studio-logo { width: 9.4rem; height: 9.4rem; border-radius: 1.1rem; }
-  .hifz-feature-art--hero .hifz-feature-art__studio-wordmark { font-size: 2.55rem !important; letter-spacing: .04em !important; transform: translateY(5rem) rotate(-6deg); }
+  .hifz-feature-art--hero .hifz-feature-art__studio-logo { width: 11rem; height: auto; border-radius: 0; }
   .hifz-feature-art__core .hifz-icon-crop { width: 3rem; height: 3rem; border-radius: .8rem; }
   .hifz-feature-art__core strong { font-size: 1.35rem; }
   .hifz-feature-art--hero .hifz-feature-art__cards article:nth-child(1) { top: 8%; left: 0; }

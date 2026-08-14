@@ -1,7 +1,7 @@
 import { Info, Layers, Menu, PhoneCall, ShieldCheck, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { MouseEvent } from 'react';
-import studioLogo from '../assets/images/gul-studios-logo.png.png';
+import studioLogo from '../assets/images/gul-studios-logo-new.png';
 
 interface NavbarProps {
   onOpenPrivacyModal: () => void;
@@ -75,8 +75,7 @@ export const Navbar = ({ onOpenPrivacyModal, onNavigateHome, currentView = 'home
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="site-header__inner">
         <button type="button" onClick={goHome} className="brand-lockup" aria-label="GÜL STUDIOS ana sayfa">
-          <span className="brand-lockup__mark brand-lockup__mark--logo" aria-hidden="true"><img src={studioLogo} alt="" width={64} height={64} /></span>
-          <span className="brand-lockup__name">GÜL<small>STUDIOS</small></span>
+          <img className="brand-lockup__full-logo" src={studioLogo} alt="" width={786} height={724} />
           <span className="brand-lockup__descriptor">Bağımsız<br />Yazılım Stüdyosu</span>
         </button>
 

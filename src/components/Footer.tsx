@@ -1,7 +1,7 @@
 import { ArrowUp, Mail, ShieldCheck } from 'lucide-react';
 import type React from 'react';
 import { STUDIO_INFO } from '../data/studioData';
-import studioLogo from '../assets/images/gul-studios-logo.png.png';
+import studioLogo from '../assets/images/gul-studios-logo-new.png';
 
 interface FooterProps {
   onOpenPrivacyModal: () => void;
@@ -30,8 +30,7 @@ export const Footer = ({ onOpenPrivacyModal, onNavigateHome, currentView }: Foot
       <div className="site-footer__inner">
         <div className="site-footer__brand">
           <div className="brand-lockup brand-lockup--footer" aria-label="GÜL STUDIOS">
-            <span className="brand-lockup__mark brand-lockup__mark--logo" aria-hidden="true"><img src={studioLogo} alt="" width={64} height={64} /></span>
-            <span className="brand-lockup__name">GÜL<small>STUDIOS</small></span>
+            <img className="brand-lockup__full-logo" src={studioLogo} alt="" width={786} height={724} />
           </div>
           <p>“{STUDIO_INFO.slogan}” — {STUDIO_INFO.subSlogan}</p>
           <span className="site-footer__status"><i aria-hidden="true" />{STUDIO_INFO.status}</span>

@@ -1,5 +1,5 @@
 import { BookOpen, ChartNoAxesCombined, Files, Search, Settings2, Sparkles } from 'lucide-react';
-import studioLogo from '../assets/images/gul-studios-logo.png.png';
+import studioLogo from '../assets/images/gul-studios-logo-new.png';
 import { HifzIcon } from './HifzIcon';
 
 type HifzFeatureArtVariant = 'hero' | 'showcase' | 'detail';
@@ -37,18 +37,14 @@ export const HifzFeatureArt = ({ variant = 'hero', className = '' }: HifzFeature
   const isStudioHero = variant === 'hero';
 
   return (
-    <div className={`hifz-feature-art hifz-feature-art--${variant} ${className}`} role="img" aria-label="HIFZ özellikleri">
+    <div className={`hifz-feature-art hifz-feature-art--${variant} ${className}`} role="img" aria-label={isStudioHero ? 'GÜL STUDIOS marka görseli' : 'HIFZ özellikleri'}>
       <div className="hifz-feature-art__grid" aria-hidden="true" />
       <span className="hifz-feature-art__line hifz-feature-art__line--one" aria-hidden="true" />
       <span className="hifz-feature-art__line hifz-feature-art__line--two" aria-hidden="true" />
       <div className="hifz-feature-art__core">
         <small className="hifz-feature-art__serial">GÜL STUDIOS · 01</small>
         {isStudioHero ? (
-          <>
-            <span className="hifz-feature-art__studio-logo"><img src={studioLogo} alt="" width={64} height={64} /></span>
-            <strong className="hifz-feature-art__studio-wordmark"><span>GÜL</span><span>STUDIOS</span></strong>
-            <small>BAĞIMSIZ YAZILIM STÜDYOSU</small>
-          </>
+          <span className="hifz-feature-art__studio-logo"><img src={studioLogo} alt="" width={786} height={724} /></span>
         ) : (
           <>
             <HifzIcon eager />
