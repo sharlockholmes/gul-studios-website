@@ -5,7 +5,6 @@ import {
   ChevronDown,
   Clock,
   Download,
-  Image as ImageIcon,
   ShieldCheck,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -13,7 +12,6 @@ import { absoluteUrl } from '../config/site';
 import { HIFZ_FAQS } from '../data/studioData';
 import { HifzIcon } from './HifzIcon';
 import { HifzFeatureArt } from './HifzFeatureArt';
-import { HifzScreenPreview, type HifzScreenVariant } from './HifzScreenPreview';
 import { GlobalDecorativeBackground } from './GlobalDecorativeBackground';
 import { HifzTestModal } from './hifz/HifzTestModal';
 import { Seo } from './Seo';
@@ -22,14 +20,6 @@ interface HifzProductPageProps {
   onBackToHome: () => void;
   onOpenPrivacyModal: () => void;
 }
-
-const screenShowcase: Array<{ variant: HifzScreenVariant; title: string; copy: string }> = [
-  { variant: 'homeLight', title: 'Açık tema ana ekran', copy: 'Günlük çalışma akışını sade bir görünümle takip edin.' },
-  { variant: 'homeDark', title: 'Koyu tema ana ekran', copy: 'Daha sakin bir görünüm için koyu tema seçeneği.' },
-  { variant: 'mistakes', title: 'Hata Defteri', copy: 'Yanlış cevapları yeniden çalışmak için tek yerde görün.' },
-  { variant: 'stats', title: 'İstatistikler', copy: 'Başarı oranı, doğru cevap ve tekrar takibi.' },
-  { variant: 'settings', title: 'Ayarlar', copy: 'Görünüm ve çalışma tercihlerini kolayca yönetin.' },
-];
 
 const storyItems = [
   {
@@ -97,7 +87,6 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
               <p>Hafızlık sınavına hazırlanırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.</p>
               <div className="hifz-detail-hero__actions">
                 <button type="button" onClick={() => setShowTestModal(true)} className="editorial-button editorial-button--primary"><Download aria-hidden="true" />Kapalı teste katıl</button>
-                <a href="#hifz-screens" className="editorial-button editorial-button--outline"><ImageIcon aria-hidden="true" />Ekranları incele</a>
               </div>
               <small>Google Play kapalı test sürecinde.</small>
             </div>
@@ -112,24 +101,6 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
             <span><BookOpen aria-hidden="true" /><b>Sınav modu</b><small>Farklı soru türleriyle pratik</small></span>
             <span><Clock aria-hidden="true" /><b>Kapalı test</b><small>Gerçek kullanıcı geri bildirimi</small></span>
             <span><ShieldCheck aria-hidden="true" /><b>Sade arayüz</b><small>Ezbere ayrılmış dikkat</small></span>
-          </div>
-        </section>
-
-        <section id="hifz-screens" className="hifz-screens editorial-section">
-          <div className="editorial-section__heading" data-reveal>
-            <div className="section-kicker"><ImageIcon aria-hidden="true" />UYGULAMADAN GÖRÜNTÜLER</div>
-            <h2>Her ekran,<br /><span>tek bir işe odaklanır.</span></h2>
-            <p>HIFZ'ın gerçek uygulama ekranları; istatistik, hata takibi ve ayar deneyimini birlikte gösterir.</p>
-          </div>
-          <div className="hifz-screen-gallery">
-            {screenShowcase.map((screen, index) => (
-              <figure key={screen.variant} className={screen.variant === 'stats' ? 'is-featured' : undefined} data-reveal style={{ transitionDelay: `${index * 70}ms` }}>
-                <div className="hifz-screen-gallery__preview">
-                  <HifzScreenPreview variant={screen.variant} label={`HIFZ ${screen.title} ekranı`} />
-                </div>
-                <figcaption><b>0{index + 1}</b><div><strong>{screen.title}</strong><p>{screen.copy}</p></div></figcaption>
-              </figure>
-            ))}
           </div>
         </section>
 
