@@ -24,17 +24,17 @@ const storyItems = [
   {
     number: '01',
     title: 'Uygulamanın amacı',
-    copy: 'HIFZ, hafızlık sınavına hazırlanırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı bir çalışma uygulamasıdır.',
+    copy: 'HIFZ, Kur’an ezberini farklı çalışma ve soru türleriyle tekrar etmeyi, test etmeyi ve pekiştirmeyi kolaylaştıran bir çalışma uygulamasıdır.',
   },
   {
     number: '02',
     title: 'Neden geliştirildi?',
-    copy: 'Sınav modu, sûre bulma, benzer ayetler ve cüz/sayfa egzersizleri gibi çalışma türlerini tek yerde, anlaşılır bir akışta sunmak için geliştirildi.',
+    copy: 'Hafızlık sürecinde yalnızca okumak değil; sayfa, sûre, cüz ve ayetler arasında zihinsel bağlantılar kurarak ezberi farklı yönlerden çalışmak da önemlidir. HIFZ, bu çalışmaları tek yerde ve düzenli bir akışta sunmak için geliştirildi.',
   },
   {
     number: '03',
     title: 'Geliştirme yaklaşımı',
-    copy: 'Çalışma geçmişi, istatistikler ve hata/tekrar takibi kullanıcının ilerlemesini görmesini kolaylaştırır; arayüz dikkat dağıtmadan pratik yapmaya odaklanır.',
+    copy: 'Sınav modu, farklı çalışma türleri, hata defteri, istatistikler ve sayfa başı/sonu çalışmaları; kullanıcının ezberini sınamasına, zorlandığı yerleri fark etmesine ve tekrarlarını daha bilinçli yapmasına yardımcı olacak şekilde tasarlanmıştır.',
   },
 ];
 
@@ -80,10 +80,10 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
             <div className="hifz-detail-hero__copy">
               <div className="hifz-product-identity">
                 <HifzIcon eager />
-                <div className="section-kicker"><BookOpen aria-hidden="true" />HIFZ · HAFIZLIK SINAV HAZIRLIK</div>
+                <div className="section-kicker"><BookOpen aria-hidden="true" /><span>HIFZ · Ezberini<br />farklı yollarla<br />pekiştir.</span></div>
               </div>
               <h1>Hafızlık çalışmasına<br /><span>sakin ve odaklı</span><br />bir eşlikçi.</h1>
-              <p>Hafızlık sınavına hazırlanırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.</p>
+              <p>Ezberini sağlamlaştırırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.</p>
               <div className="hifz-detail-hero__actions">
                 <a href={HIFZ_PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="editorial-button editorial-button--primary"><Download aria-hidden="true" />Google Play’den indir</a>
               </div>
@@ -106,7 +106,7 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
         <section className="hifz-story editorial-section">
           <div className="editorial-section__heading" data-reveal>
             <div className="section-kicker"><Brain aria-hidden="true" />AMAÇ & YAKLAŞIM</div>
-            <h2>Sınava hazırlanırken<br /><span>odaklı pratik yapmak.</span></h2>
+            <h2>Ezberini<br /><span>farklı yollarla</span><br />pekiştir.</h2>
           </div>
           <div className="hifz-story__list">
             {storyItems.map((item, index) => (

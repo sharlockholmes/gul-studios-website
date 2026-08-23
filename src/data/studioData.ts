@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
     id: 'hifz',
     name: 'HIFZ',
     tagline: 'Hafızlık Sınav Hazırlık',
-    description: 'Hafızlık sınavına hazırlanırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.',
+    description: 'Ezberini sağlamlaştırırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.',
     category: 'Android Uygulaması',
     badge: 'Google Play’de Yayında',
     status: 'Yayında',
