@@ -8,12 +8,11 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useState } from 'react';
-import { absoluteUrl } from '../config/site';
+import { absoluteUrl, HIFZ_PLAY_STORE_URL } from '../config/site';
 import { HIFZ_FAQS } from '../data/studioData';
 import { HifzIcon } from './HifzIcon';
 import { HifzFeatureArt } from './HifzFeatureArt';
 import { GlobalDecorativeBackground } from './GlobalDecorativeBackground';
-import { HifzTestModal } from './hifz/HifzTestModal';
 import { Seo } from './Seo';
 
 interface HifzProductPageProps {
@@ -41,7 +40,6 @@ const storyItems = [
 
 export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProductPageProps) => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [showTestModal, setShowTestModal] = useState(false);
 
   return (
     <div className="hifz-page">
@@ -59,6 +57,7 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
               applicationCategory: 'EducationalApplication',
               operatingSystem: 'Android',
               url: absoluteUrl('/hifz'),
+              downloadUrl: HIFZ_PLAY_STORE_URL,
             },
             { '@type': 'FAQPage', mainEntity: HIFZ_FAQS.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })) },
           ],
@@ -68,8 +67,8 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
       <div className="hifz-subnav">
         <div>
           <button type="button" onClick={onBackToHome} className="hifz-subnav__back"><ArrowLeft aria-hidden="true" />Ana sayfaya dön</button>
-          <span className="hifz-subnav__status"><i aria-hidden="true" />Google Play kapalı test</span>
-          <button type="button" onClick={() => setShowTestModal(true)} className="hifz-subnav__cta"><Download aria-hidden="true" /><span>Test sürümüne katıl</span></button>
+          <span className="hifz-subnav__status"><i aria-hidden="true" />Google Play’de yayında</span>
+          <a href={HIFZ_PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="hifz-subnav__cta"><Download aria-hidden="true" /><span>Google Play’den indir</span></a>
         </div>
       </div>
 
@@ -86,9 +85,9 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
               <h1>Hafızlık çalışmasına<br /><span>sakin ve odaklı</span><br />bir eşlikçi.</h1>
               <p>Hafızlık sınavına hazırlanırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.</p>
               <div className="hifz-detail-hero__actions">
-                <button type="button" onClick={() => setShowTestModal(true)} className="editorial-button editorial-button--primary"><Download aria-hidden="true" />Kapalı teste katıl</button>
+                <a href={HIFZ_PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="editorial-button editorial-button--primary"><Download aria-hidden="true" />Google Play’den indir</a>
               </div>
-              <small>Google Play kapalı test sürecinde.</small>
+              <small>Google Play’de yayında.</small>
             </div>
 
             <div className="hifz-detail-hero__visual" aria-label="HIFZ ürün görseli">
@@ -99,7 +98,7 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
 
           <div className="hifz-detail-facts" data-reveal>
             <span><BookOpen aria-hidden="true" /><b>Sınav modu</b><small>Farklı soru türleriyle pratik</small></span>
-            <span><Clock aria-hidden="true" /><b>Kapalı test</b><small>Gerçek kullanıcı geri bildirimi</small></span>
+            <span><Clock aria-hidden="true" /><b>Google Play</b><small>Şimdi indirilebilir</small></span>
             <span><ShieldCheck aria-hidden="true" /><b>Sade arayüz</b><small>Ezbere ayrılmış dikkat</small></span>
           </div>
         </section>
@@ -139,13 +138,12 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
         <section className="hifz-final-cta">
           <div data-reveal>
             <span><BookOpen aria-hidden="true" /></span>
-            <div><small>GOOGLE PLAY KAPALI TEST</small><h2>HIFZ'ı ilk deneyenlerden biri olun.</h2><p>Test grubuna katılım talebinizi e-posta üzerinden iletin; form verileri web sitesinde saklanmaz.</p></div>
-            <div><button type="button" onClick={() => setShowTestModal(true)} className="editorial-button editorial-button--gold"><Download aria-hidden="true" />Talep oluştur</button><button type="button" onClick={onOpenPrivacyModal} className="hifz-final-cta__privacy"><ShieldCheck aria-hidden="true" />Gizlilik</button></div>
+            <div><small>GOOGLE PLAY’DE YAYINDA</small><h2>HIFZ’ı şimdi kullanmaya başlayın.</h2><p>Uygulamayı Google Play üzerinden indirebilir ve hafızlık çalışmalarınıza hemen başlayabilirsiniz.</p></div>
+            <div><a href={HIFZ_PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="editorial-button editorial-button--gold"><Download aria-hidden="true" />Google Play’den indir</a><button type="button" onClick={onOpenPrivacyModal} className="hifz-final-cta__privacy"><ShieldCheck aria-hidden="true" />Gizlilik</button></div>
           </div>
         </section>
       </main>
 
-      <HifzTestModal isOpen={showTestModal} onClose={() => setShowTestModal(false)} />
     </div>
   );
 };

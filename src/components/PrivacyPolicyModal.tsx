@@ -15,13 +15,13 @@ export const PrivacyPolicyModal = ({ isOpen, onClose }: PrivacyPolicyModalProps)
     </div>
 
     <div className="privacy-modal__content">
-      <div className="modal-notice"><Lock aria-hidden="true" /><p><strong>Özet:</strong> Bu web sitesi şu anda iletişim veya kapalı test formlarından kişisel veri toplamaz, saklamaz ya da üçüncü taraflarla paylaşmaz.</p></div>
-      <section><h4><CheckCircle2 aria-hidden="true" />1. Formlar ve iletişim</h4><p>Web sitesindeki iletişim ve test talep alanları gönderim altyapısına bağlı değildir. Bu nedenle yazılan bilgiler işlenmez veya iletilmez. İletişim kurmak için e-posta bağlantısını kullanabilirsiniz.</p></section>
+      <div className="modal-notice"><Lock aria-hidden="true" /><p><strong>Özet:</strong> Bu web sitesi iletişim formundan kişisel veri toplamaz, saklamaz ya da üçüncü taraflarla paylaşmaz.</p></div>
+      <section><h4><CheckCircle2 aria-hidden="true" />1. Formlar ve iletişim</h4><p>Web sitesindeki iletişim alanı gönderim altyapısına bağlı değildir. Bu nedenle yazılan bilgiler işlenmez veya iletilmez. İletişim kurmak için e-posta bağlantısını kullanabilirsiniz.</p></section>
       <section><h4><EyeOff aria-hidden="true" />2. İzleme ve üçüncü taraflar</h4><p>Bu sürümde analiz, reklam veya izleme çerezi kullanılmaz. Yazı tipleri optimize edilmiş Google Fonts bağlantısı üzerinden yüklenir; bu istekler Google’ın kendi gizlilik politikasına tabidir.</p></section>
-      <section><h4><FileText aria-hidden="true" />3. HIFZ uygulama bilgileri</h4><p>HIFZ'ın mevcut sürümünde çalışma geçmişi ve uygulama ayarları cihaz üzerinde tutulur. Bulut eşitleme özelliği bulunmaz. Uygulamaya özgü güncel gizlilik ayrıntıları yayın süreciyle birlikte ayrıca sunulacaktır.</p></section>
+      <section><h4><FileText aria-hidden="true" />3. HIFZ uygulama bilgileri</h4><p>HIFZ'ın mevcut sürümünde çalışma geçmişi ve uygulama ayarları cihaz üzerinde tutulur. Bulut eşitleme özelliği bulunmaz. Uygulamaya özgü güncel gizlilik ayrıntıları Google Play mağaza sayfasında sunulur.</p></section>
       <section><h4><Mail aria-hidden="true" />4. İletişim</h4><p>Gizlilik veya veri talepleri için <a href="mailto:gulstudiosapps@gmail.com">gulstudiosapps@gmail.com</a> adresine yazabilirsiniz.</p></section>
     </div>
 
-    <div className="privacy-modal__footer"><span>Son güncelleme: 8 Ağustos 2026</span><button type="button" onClick={onClose} className="editorial-button editorial-button--primary">Anladım & Kapat</button></div>
+    <div className="privacy-modal__footer"><span>Son güncelleme: 23 Ağustos 2026</span><button type="button" onClick={onClose} className="editorial-button editorial-button--primary">Anladım & Kapat</button></div>
   </Modal>
 );

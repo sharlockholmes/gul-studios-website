@@ -18,7 +18,7 @@ export const ProductsGrid = ({ onInspectHifz }: ProductsGridProps) => (
       <article className="product-showcase-card product-showcase-card--hifz" data-reveal>
         <header className="product-showcase-card__header">
           <span>01 / EĞİTİM</span>
-          <small>Kapalı test</small>
+          <small>Yayında</small>
         </header>
         <div className="product-showcase-card__copy">
           <h3>HIFZ</h3>

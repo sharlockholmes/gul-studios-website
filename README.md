@@ -63,7 +63,7 @@ Bu proje istemci paketine gizli API anahtarı koymaz. İleride sunucu entegrasyo
 
 ## Formlar
 
-İletişim ve Hıfz kapalı test formları şu an bir backend'e veri göndermiyor. Kullanıcıya bu açıkça bildirilir ve `gulstudiosapps@gmail.com` için mailto alternatifi verilir. Form gönderim altyapısı eklendiğinde gizlilik politikasını da gerçek veri akışıyla birlikte güncelleyin.
+İletişim formu şu an bir backend'e veri göndermiyor. Kullanıcıya bu açıkça bildirilir ve `gulstudiosapps@gmail.com` için mailto alternatifi verilir. Form gönderim altyapısı eklendiğinde gizlilik politikasını da gerçek veri akışıyla birlikte güncelleyin.
 
 ## Production Security Headers
 

@@ -17,8 +17,8 @@ export const PRODUCTS: Product[] = [
     tagline: 'Hafızlık Sınav Hazırlık',
     description: 'Hafızlık sınavına hazırlanırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.',
     category: 'Android Uygulaması',
-    badge: 'Google Play Kapalı Test Sürecinde',
-    status: 'Kapalı Test',
+    badge: 'Google Play’de Yayında',
+    status: 'Yayında',
     iconName: 'BookOpen',
     isFlagship: true,
     features: [
@@ -55,8 +55,8 @@ export const FAQS: FAQItem[] = [
     category: 'Stüdyo'
   },
   {
-    question: 'HIFZ uygulamasını nasıl deneyebilirim?',
-    answer: 'HIFZ şu anda Google Play Kapalı Test Sürecindedir. Test grubuna katılım talebi için gulstudiosapps@gmail.com adresine e-posta gönderebilirsiniz.',
+    question: 'HIFZ uygulamasını nasıl indirebilirim?',
+    answer: 'HIFZ Google Play’de yayındadır. Uygulamayı HIFZ ürün sayfasındaki Google Play bağlantısı üzerinden indirebilirsiniz.',
     category: 'HIFZ'
   },
   {
@@ -74,7 +74,7 @@ export const FAQS: FAQItem[] = [
 export const HIFZ_FAQS: FAQItem[] = [
   {
     question: 'HIFZ uygulaması ücretli midir?',
-    answer: 'HIFZ şu anda Google Play kapalı test sürecindedir. Genel yayın ve fiyatlandırma bilgileri kesinleştiğinde resmî kanallardan duyurulacaktır.',
+    answer: 'HIFZ Google Play’de yayındadır. Güncel edinme ve kullanım bilgilerini uygulamanın Google Play mağaza sayfasında bulabilirsiniz.',
     category: 'HIFZ'
   },
   {
@@ -83,8 +83,8 @@ export const HIFZ_FAQS: FAQItem[] = [
     category: 'HIFZ'
   },
   {
-    question: 'Google Play kapalı test sürecine nasıl katılabilirim?',
-    answer: 'Kapalı test grubumuza katılmak için gulstudiosapps@gmail.com adresine e-posta göndererek test kullanıcısı talebinde bulunabilirsiniz.',
+    question: 'HIFZ uygulamasını nereden indirebilirim?',
+    answer: 'HIFZ’i Google Play üzerinden indirebilirsiniz. Mağaza bağlantısına HIFZ ürün sayfasındaki indirme düğmesinden ulaşabilirsiniz.',
     category: 'HIFZ'
   },
   {
