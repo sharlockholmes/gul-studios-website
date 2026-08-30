@@ -6,11 +6,11 @@ interface ProductsGridProps {
 }
 
 export const ProductsGrid = ({ onInspectHifz }: ProductsGridProps) => (
-  <section id="products" className="product-editorial">
+  <section id="products" className="product-editorial" aria-labelledby="products-title">
     <div className="section-entry-rule" data-reveal aria-hidden="true" />
     <div className="product-showcase-heading" data-reveal>
       <div className="section-kicker"><Sparkles aria-hidden="true" />ÜRÜNLERİMİZ</div>
-      <h2>Odaklı ürünler.<br /><span>Gerçek fayda.</span></h2>
+      <h2 id="products-title">Odaklı ürünler.<br /><span>Gerçek fayda.</span></h2>
       <p>Her ürün, belirli bir işi daha kolay yapmak için tasarlanır.</p>
     </div>
 
@@ -22,12 +22,12 @@ export const ProductsGrid = ({ onInspectHifz }: ProductsGridProps) => (
         </header>
         <div className="product-showcase-card__copy">
           <h3>HIFZ</h3>
-          <p>Hafızlık Sınav Hazırlık</p>
+          <p>Hafızlık sınavı için sınav modu, sûre çalışmaları, benzer ayetler ve cüz/sayfa egzersizlerini tek yerde sunan çalışma uygulaması.</p>
         </div>
         <div className="product-showcase-card__visual product-showcase-card__visual--hifz" aria-label="HIFZ uygulama kimliği">
           <div className="hifz-product-emblem">
             <HifzIcon eager />
-            <button type="button" onClick={onInspectHifz} className="hifz-product-emblem__cta">HIFZ'i İncele <ArrowRight aria-hidden="true" /></button>
+            <a href="/hifz" onClick={(event) => { event.preventDefault(); onInspectHifz(); }} className="hifz-product-emblem__cta">HIFZ'i İncele <ArrowRight aria-hidden="true" /></a>
           </div>
         </div>
       </article>
@@ -38,10 +38,10 @@ export const ProductsGrid = ({ onInspectHifz }: ProductsGridProps) => (
           <small>Planlanıyor</small>
         </header>
         <div className="product-showcase-card__copy">
-          <h3>Kur'an Kursu<br />Yönetim Sistemi</h3>
+          <h3>Kur’an Kursu<br />Yönetim Sistemi</h3>
           <p>Kur'an kursları ve hafızlık kurumları için planlanan kurum yönetim platformu.</p>
         </div>
-        <div className="product-showcase-card__visual product-showcase-card__visual--course" aria-label="Kur'an Kursu Yönetim Sistemi ürün ön izlemesi">
+        <div className="product-showcase-card__visual product-showcase-card__visual--course" aria-label="Kur’an Kursu Yönetim Sistemi ürün ön izlemesi">
           <div className="course-product-symbol"><GraduationCap aria-hidden="true" /></div>
           <div className="course-product-interface" aria-hidden="true">
             <span><Users /><i><b>Öğrenciler</b><small>Takip ve gruplar</small></i></span>

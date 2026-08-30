@@ -1,12 +1,12 @@
 import { CheckCircle2, Quote, Sparkles } from 'lucide-react';
 
 export const AboutSection = () => (
-  <section id="approach" className="approach-editorial">
+  <section id="approach" className="approach-editorial" aria-labelledby="approach-title">
     <div className="approach-editorial__pattern" aria-hidden="true" />
     <div className="approach-editorial__inner">
       <div className="approach-editorial__heading" data-reveal>
         <div className="section-kicker section-kicker--dark"><Sparkles aria-hidden="true" />YAKLAŞIMIMIZ</div>
-        <h2>Neden<br />varız?</h2>
+        <h2 id="approach-title">Neden<br />varız?</h2>
         <span>İSTANBUL · TÜRKİYE</span>
       </div>
 

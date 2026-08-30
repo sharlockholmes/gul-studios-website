@@ -43,7 +43,7 @@ export const Hero = ({ onInspectHifz }: HeroProps) => {
 
   return (
     <>
-      <section id="hero" className="hero-editorial">
+      <section id="hero" className="hero-editorial" aria-labelledby="home-hero-title">
         <div className="hero-paper-texture" aria-hidden="true" />
         <div className="hero-editorial__pattern" aria-hidden="true" />
         <div className="hero-lattice" aria-hidden="true" />
@@ -53,7 +53,7 @@ export const Hero = ({ onInspectHifz }: HeroProps) => {
         <div className="hero-editorial__inner">
           <div className="hero-copy">
             <div className="animate-rise hero-eyebrow"><Sparkles aria-hidden="true" />GÜL STUDIOS — Bağımsız Dijital Ürün Stüdyosu</div>
-            <h1 className="animate-rise animate-rise--2">Yazılımın Ötesinde,<br /><span>Fayda Üretiyoruz.</span></h1>
+            <h1 id="home-hero-title" className="animate-rise animate-rise--2">Yazılımın Ötesinde,<br /><span>Fayda Üretiyoruz.</span></h1>
             <p className="animate-rise animate-rise--3">Tek bir ihtiyaca odaklanan, kullanımı ve bakımı sade kalan dijital ürünler geliştiriyoruz.</p>
             <div className="animate-rise animate-rise--4 hero-actions">
               <a href="#products" className="editorial-button editorial-button--primary"><BookOpen aria-hidden="true" />Ürünlerimizi İncele <ArrowRight aria-hidden="true" /></a>
@@ -65,7 +65,7 @@ export const Hero = ({ onInspectHifz }: HeroProps) => {
             <div className="hero-hifz-stage__disc" aria-hidden="true" />
             <div className="hero-hifz-stage__arc" aria-hidden="true" />
             <HifzFeatureArt className="hero-product-render" />
-            <button type="button" onClick={onInspectHifz} className="hero-hifz-stage__label">HIFZ Uygulamasını Keşfet <ArrowRight aria-hidden="true" /></button>
+            <a href="/hifz" onClick={(event) => { event.preventDefault(); onInspectHifz(); }} className="hero-hifz-stage__label">HIFZ Uygulamasını Keşfet <ArrowRight aria-hidden="true" /></a>
           </div>
         </div>
       </section>

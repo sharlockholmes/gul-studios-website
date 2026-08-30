@@ -28,13 +28,13 @@ const points = [
 ];
 
 export const WhyUsSection = () => (
-  <section id="why-us" className="why-editorial">
+  <section id="why-us" className="why-editorial" aria-labelledby="why-us-title">
     <div className="why-editorial__pattern" aria-hidden="true" />
     <div className="section-entry-rule" data-reveal aria-hidden="true" />
     <div className="why-editorial__inner">
       <div className="why-editorial__intro" data-reveal>
         <div className="section-kicker"><Sparkles aria-hidden="true" />İLKELERİMİZ</div>
-        <h2>Neden<br /><span>GÜL STUDIOS?</span></h2>
+        <h2 id="why-us-title">Neden<br /><span>GÜL STUDIOS?</span></h2>
         <p>Dört ilke, hangi ürünü geliştireceğimize ve nasıl geliştireceğimize yön verir.</p>
         <div className="why-editorial__note"><b>01—04</b><span>Her karar şu soruyla başlar.<br />Kullanıcı bununla neyi daha kolay yapacak?</span></div>
       </div>

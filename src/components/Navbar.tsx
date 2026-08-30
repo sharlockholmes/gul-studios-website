@@ -1,5 +1,5 @@
 import { Info, Layers, Menu, PhoneCall, ShieldCheck, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
 import studioLogo from '../assets/images/gul-studios-logo-new.png';
 
@@ -20,6 +20,7 @@ export const Navbar = ({ onOpenPrivacyModal, onNavigateHome, currentView = 'home
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeHref, setActiveHref] = useState<string | null>(null);
+  const mobileMenuToggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 20);
@@ -52,7 +53,11 @@ export const Navbar = ({ onOpenPrivacyModal, onNavigateHome, currentView = 'home
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => event.key === 'Escape' && setMobileMenuOpen(false);
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setMobileMenuOpen(false);
+      window.requestAnimationFrame(() => mobileMenuToggleRef.current?.focus());
+    };
     document.addEventListener('keydown', closeOnEscape);
     return () => document.removeEventListener('keydown', closeOnEscape);
   }, [mobileMenuOpen]);
@@ -65,6 +70,7 @@ export const Navbar = ({ onOpenPrivacyModal, onNavigateHome, currentView = 'home
 
   const handleLink = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     setMobileMenuOpen(false);
+    window.requestAnimationFrame(() => mobileMenuToggleRef.current?.focus());
     if (currentView === 'home') return;
     event.preventDefault();
     onNavigateHome?.();
@@ -74,19 +80,19 @@ export const Navbar = ({ onOpenPrivacyModal, onNavigateHome, currentView = 'home
   return (
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="site-header__inner">
-        <button type="button" onClick={goHome} className="brand-lockup" aria-label="GÜL STUDIOS ana sayfa">
+        <a href="/" onClick={(event) => { event.preventDefault(); goHome(); }} className="brand-lockup" aria-label="GÜL STUDIOS ana sayfa">
           <img className="brand-lockup__full-logo" src={studioLogo} alt="" width={786} height={724} />
           <span className="brand-lockup__descriptor">Bağımsız<br />Yazılım Stüdyosu</span>
-        </button>
+        </a>
 
         <nav className="site-header__nav" aria-label="Ana navigasyon">
           {links.map((link) => (
             <a
               key={link.name}
-              href={link.href}
+              href={currentView === 'home' ? link.href : `/${link.href}`}
               onClick={(event) => handleLink(event, link.href)}
               className={`nav-editorial-link ${activeHref === link.href ? 'is-active' : ''}`}
-              aria-current={activeHref === link.href ? 'page' : undefined}
+              aria-current={activeHref === link.href ? 'location' : undefined}
             >
               {link.name}
             </a>
@@ -97,6 +103,7 @@ export const Navbar = ({ onOpenPrivacyModal, onNavigateHome, currentView = 'home
         <span className="studio-status"><i aria-hidden="true" />Ürün Odaklı Stüdyo</span>
 
         <button
+          ref={mobileMenuToggleRef}
           type="button"
           onClick={() => setMobileMenuOpen((value) => !value)}
           aria-label={mobileMenuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
@@ -108,18 +115,18 @@ export const Navbar = ({ onOpenPrivacyModal, onNavigateHome, currentView = 'home
         </button>
       </div>
 
-      <div id="mobile-navigation" className={`mobile-navigation ${mobileMenuOpen ? 'is-open' : ''}`} aria-hidden={!mobileMenuOpen}>
+      <nav id="mobile-navigation" className={`mobile-navigation ${mobileMenuOpen ? 'is-open' : ''}`} aria-label="Mobil navigasyon" aria-hidden={!mobileMenuOpen}>
         <div>
           {links.map(({ name, href, icon: Icon }) => (
-            <a key={name} href={href} onClick={(event) => handleLink(event, href)} tabIndex={mobileMenuOpen ? 0 : -1}>
+            <a key={name} href={currentView === 'home' ? href : `/${href}`} onClick={(event) => handleLink(event, href)} tabIndex={mobileMenuOpen ? 0 : -1}>
               <Icon aria-hidden="true" />{name}
             </a>
           ))}
-          <button type="button" tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => { setMobileMenuOpen(false); onOpenPrivacyModal(); }}>
+          <button type="button" tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => { setMobileMenuOpen(false); window.requestAnimationFrame(() => mobileMenuToggleRef.current?.focus()); onOpenPrivacyModal(); }}>
             <ShieldCheck aria-hidden="true" />Gizlilik Politikası
           </button>
         </div>
-      </div>
+      </nav>
     </header>
   );
 };

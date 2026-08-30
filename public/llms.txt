@@ -1,0 +1,26 @@
+# GÜL STUDIOS
+
+> İnsanların gerçek ihtiyaçlarına odaklanan, sade, kaliteli ve uzun ömürlü dijital ürünler geliştiren bağımsız yazılım stüdyosu.
+
+## Web sitesi
+
+- URL: https://gulstudios.dev/
+
+## Ürünler
+
+### HIFZ
+
+- URL: https://gulstudios.dev/hifz
+- Durum: Google Play’de yayında
+- Google Play: https://play.google.com/store/apps/details?id=com.gulstudios.hifz
+- Açıklama: Hafızlık sınavına hazırlık için sınav modu, sûre bulma, benzer ayetler ve cüz/sayfa çalışmaları sunan çalışma uygulaması.
+
+### Kur’an Kursu Yönetim Sistemi
+
+- Durum: Planlanıyor
+- Açıklama: Kur’an kursları ve hafızlık kurumları için planlanan modern kurum yönetim platformu.
+
+## İletişim
+
+- E-posta: gulstudiosapps@gmail.com
+- Konum: İstanbul, Türkiye

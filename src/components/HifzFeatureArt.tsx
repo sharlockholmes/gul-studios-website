@@ -10,13 +10,7 @@ interface HifzFeatureArtProps {
 }
 
 const featureSets = {
-  hero: [
-    { label: 'Sınav Modu', icon: BookOpen },
-    { label: 'Sûre Bulma', icon: Search },
-    { label: 'Benzer Ayetler', icon: Files },
-    { label: 'Sayfa Başı / Sonu', icon: Files },
-    { label: 'Cüz / Sayfa', icon: Sparkles },
-  ],
+  hero: [],
   showcase: [
     { label: 'Sınava Hazırlık', copy: 'Sınav modu ve farklı soru türleriyle pratik.', icon: BookOpen },
     { label: 'İstatistik & Hata Takibi', copy: 'Doğru, yanlış ve çalışma geçmişini takip et.', icon: ChartNoAxesCombined },
@@ -37,7 +31,11 @@ export const HifzFeatureArt = ({ variant = 'hero', className = '' }: HifzFeature
   const isStudioHero = variant === 'hero';
 
   return (
-    <div className={`hifz-feature-art hifz-feature-art--${variant} ${className}`} role="img" aria-label={isStudioHero ? 'GÜL STUDIOS marka görseli' : 'HIFZ özellikleri'}>
+    <div
+      className={`hifz-feature-art hifz-feature-art--${variant} ${className}`}
+      role={isStudioHero ? 'img' : undefined}
+      aria-label={isStudioHero ? 'GÜL STUDIOS marka görseli' : undefined}
+    >
       <div className="hifz-feature-art__grid" aria-hidden="true" />
       <span className="hifz-feature-art__line hifz-feature-art__line--one" aria-hidden="true" />
       <span className="hifz-feature-art__line hifz-feature-art__line--two" aria-hidden="true" />
@@ -53,16 +51,20 @@ export const HifzFeatureArt = ({ variant = 'hero', className = '' }: HifzFeature
           </>
         )}
       </div>
-      <div className="hifz-feature-art__cards">
-        {features.map(({ label, copy, icon: Icon }, index) => (
-          <article key={label}>
-            <em>0{index + 1}</em>
-            <Icon aria-hidden="true" />
-            <div><b>{label}</b>{copy && <small>{copy}</small>}</div>
-          </article>
-        ))}
-      </div>
-      <span className="hifz-feature-art__footer-note">ODAK · TEKRAR · İLERLEME</span>
+      {!isStudioHero && (
+        <>
+          <ul className="hifz-feature-art__cards">
+            {features.map(({ label, copy, icon: Icon }, index) => (
+              <li key={label}>
+                <em>0{index + 1}</em>
+                <Icon aria-hidden="true" />
+                <div><b>{label}</b>{copy && <small>{copy}</small>}</div>
+              </li>
+            ))}
+          </ul>
+          <span className="hifz-feature-art__footer-note">ODAK · TEKRAR · İLERLEME</span>
+        </>
+      )}
     </div>
   );
 };

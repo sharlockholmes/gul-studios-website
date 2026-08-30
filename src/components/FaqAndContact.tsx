@@ -23,12 +23,12 @@ export const FaqAndContact = () => {
   }, [contactForm]);
 
   return (
-    <section id="contact" className="contact-editorial">
+    <section id="contact" className="contact-editorial" aria-labelledby="contact-title">
       <div className="contact-editorial__pattern" aria-hidden="true" />
       <div className="contact-editorial__inner">
         <div className="contact-editorial__heading" data-reveal>
           <div className="section-kicker"><MessageSquare aria-hidden="true" />İLETİŞİM & MERAK EDİLENLER</div>
-          <h2>Bir fikri<br /><span>konuşalım.</span></h2>
+          <h2 id="contact-title">Bir fikri<br /><span>konuşalım.</span></h2>
           <p>Sorularınız ve ürünlerimiz hakkındaki görüşleriniz için doğrudan e-posta üzerinden bize ulaşabilirsiniz.</p>
           <div className="contact-details">
             <a href="mailto:gulstudiosapps@gmail.com"><Mail aria-hidden="true" /><span><small>Resmî iletişim</small>gulstudiosapps@gmail.com</span></a>
@@ -56,7 +56,7 @@ export const FaqAndContact = () => {
                       <span><small>0{index + 1}</small>{faq.question}</span>
                       <ChevronDown aria-hidden="true" />
                     </button>
-                    {isOpen && <div id={answerId} role="region" aria-labelledby={buttonId}><p>{faq.answer}</p></div>}
+                    <div id={answerId} role="region" aria-labelledby={buttonId} hidden={!isOpen}><p>{faq.answer}</p></div>
                   </article>
                 );
               })}

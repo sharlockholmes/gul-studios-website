@@ -8,7 +8,8 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useState } from 'react';
-import { absoluteUrl, HIFZ_PLAY_STORE_URL } from '../config/site';
+import { HIFZ_PLAY_STORE_URL } from '../config/site';
+import { HIFZ_SEO } from '../config/seo';
 import { HIFZ_FAQS } from '../data/studioData';
 import { HifzIcon } from './HifzIcon';
 import { HifzFeatureArt } from './HifzFeatureArt';
@@ -43,47 +44,28 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
 
   return (
     <div className="hifz-page">
-      <Seo
-        title="HIFZ — Hafızlık Sınav Hazırlık | GÜL STUDIOS"
-        description="Hafızlık sınavına hazırlık için sınav modu, sûre bulma, benzer ayetler ve cüz/sayfa çalışmaları sunan HIFZ uygulaması."
-        path="/hifz"
-        schema={{
-          '@context': 'https://schema.org',
-          '@graph': [
-            {
-              '@type': 'SoftwareApplication',
-              name: 'HIFZ — Hafızlık Sınav Hazırlık',
-              description: 'Hafızlık sınavına hazırlık için sınav modu, sûre bulma, benzer ayetler ve cüz/sayfa çalışmaları sunan HIFZ uygulaması.',
-              applicationCategory: 'EducationalApplication',
-              operatingSystem: 'Android',
-              url: absoluteUrl('/hifz'),
-              downloadUrl: HIFZ_PLAY_STORE_URL,
-            },
-            { '@type': 'FAQPage', mainEntity: HIFZ_FAQS.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })) },
-          ],
-        }}
-      />
+      <Seo {...HIFZ_SEO} />
 
       <div className="hifz-subnav">
         <div>
-          <button type="button" onClick={onBackToHome} className="hifz-subnav__back"><ArrowLeft aria-hidden="true" />Ana sayfaya dön</button>
+          <a href="/" onClick={(event) => { event.preventDefault(); onBackToHome(); }} className="hifz-subnav__back"><ArrowLeft aria-hidden="true" />Ana sayfaya dön</a>
           <span className="hifz-subnav__status"><i aria-hidden="true" />Google Play’de yayında</span>
           <a href={HIFZ_PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="hifz-subnav__cta"><Download aria-hidden="true" /><span>Google Play’den indir</span></a>
         </div>
       </div>
 
-      <main className="hifz-page-canvas">
+      <main id="main-content" className="hifz-page-canvas" tabIndex={-1}>
         <GlobalDecorativeBackground variant="hifz" />
-        <section className="hifz-detail-hero">
+        <section className="hifz-detail-hero" aria-labelledby="hifz-page-title">
           <div className="hifz-detail-hero__pattern" aria-hidden="true" />
           <div className="hifz-detail-hero__inner">
             <div className="hifz-detail-hero__copy">
               <div className="hifz-product-identity">
                 <HifzIcon eager />
-                <div className="section-kicker"><BookOpen aria-hidden="true" /><span>HIFZ · Ezberini<br />farklı yollarla<br />pekiştir.</span></div>
+                <div className="section-kicker"><BookOpen aria-hidden="true" /><h1 id="hifz-page-title" className="hifz-identity-title">HIFZ · Ezberini<br />farklı yollarla<br />pekiştir.</h1></div>
               </div>
-              <h1>Hafızlık çalışmasına<br /><span>sakin ve odaklı</span><br />bir eşlikçi.</h1>
-              <p>Ezberini sağlamlaştırırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.</p>
+              <p className="hifz-detail-hero__headline">Hafızlık çalışmasına<br /><span>sakin ve odaklı</span><br />bir eşlikçi.</p>
+              <p className="hifz-detail-hero__description">Ezberini sağlamlaştırırken farklı soru türleriyle pratik yapmayı kolaylaştıran sade ve odaklı çalışma uygulaması.</p>
               <div className="hifz-detail-hero__actions">
                 <a href={HIFZ_PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="editorial-button editorial-button--primary"><Download aria-hidden="true" />Google Play’den indir</a>
               </div>
@@ -103,10 +85,10 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
           </div>
         </section>
 
-        <section className="hifz-story editorial-section">
+        <section className="hifz-story editorial-section" aria-labelledby="hifz-story-title">
           <div className="editorial-section__heading" data-reveal>
             <div className="section-kicker"><Brain aria-hidden="true" />AMAÇ & YAKLAŞIM</div>
-            <h2>Ezberini<br /><span>farklı yollarla</span><br />pekiştir.</h2>
+            <h2 id="hifz-story-title">Ezberini<br /><span>farklı yollarla</span><br />pekiştir.</h2>
           </div>
           <div className="hifz-story__list">
             {storyItems.map((item, index) => (
@@ -115,10 +97,10 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
           </div>
         </section>
 
-        <section className="hifz-faq editorial-section">
+        <section className="hifz-faq editorial-section" aria-labelledby="hifz-faq-title">
           <div className="editorial-section__heading" data-reveal>
             <div className="section-kicker"><BookOpen aria-hidden="true" />SIKÇA SORULAN SORULAR</div>
-            <h2>HIFZ hakkında<br /><span>merak edilenler.</span></h2>
+            <h2 id="hifz-faq-title">HIFZ hakkında<br /><span>merak edilenler.</span></h2>
           </div>
           <div className="faq-editorial" data-reveal>
             {HIFZ_FAQS.map((faq, index) => {
@@ -128,17 +110,17 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
               return (
                 <article key={faq.question} className={isOpen ? 'is-open' : ''}>
                   <button id={buttonId} type="button" onClick={() => setOpenFaq(isOpen ? null : index)} aria-expanded={isOpen} aria-controls={answerId}><span><small>0{index + 1}</small>{faq.question}</span><ChevronDown aria-hidden="true" /></button>
-                  {isOpen && <div id={answerId} role="region" aria-labelledby={buttonId}><p>{faq.answer}</p></div>}
+                  <div id={answerId} role="region" aria-labelledby={buttonId} hidden={!isOpen}><p>{faq.answer}</p></div>
                 </article>
               );
             })}
           </div>
         </section>
 
-        <section className="hifz-final-cta">
+        <section className="hifz-final-cta" aria-labelledby="hifz-download-title">
           <div data-reveal>
             <span><BookOpen aria-hidden="true" /></span>
-            <div><small>GOOGLE PLAY’DE YAYINDA</small><h2>HIFZ’ı şimdi kullanmaya başlayın.</h2><p>Uygulamayı Google Play üzerinden indirebilir ve hafızlık çalışmalarınıza hemen başlayabilirsiniz.</p></div>
+            <div><small>GOOGLE PLAY’DE YAYINDA</small><h2 id="hifz-download-title">HIFZ’ı şimdi kullanmaya başlayın.</h2><p>Uygulamayı Google Play üzerinden indirebilir ve hafızlık çalışmalarınıza hemen başlayabilirsiniz.</p></div>
             <div><a href={HIFZ_PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="editorial-button editorial-button--gold"><Download aria-hidden="true" />Google Play’den indir</a><button type="button" onClick={onOpenPrivacyModal} className="hifz-final-cta__privacy"><ShieldCheck aria-hidden="true" />Gizlilik</button></div>
           </div>
         </section>

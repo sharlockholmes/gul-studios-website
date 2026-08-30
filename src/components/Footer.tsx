@@ -38,7 +38,7 @@ export const Footer = ({ onOpenPrivacyModal, onNavigateHome, currentView }: Foot
 
         <nav className="site-footer__links" aria-label="Alt navigasyon">
           <span>Keşfet</span>
-          {footerLinks.map((link) => <a key={link.href} href={link.href} onClick={(event) => handleHomeLink(event, link.href)}>{link.label}</a>)}
+          {footerLinks.map((link) => <a key={link.href} href={currentView === 'home' ? link.href : `/${link.href}`} onClick={(event) => handleHomeLink(event, link.href)}>{link.label}</a>)}
         </nav>
 
         <div className="site-footer__contact">
