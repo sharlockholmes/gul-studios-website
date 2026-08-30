@@ -73,7 +73,6 @@ export const HifzProductPage = ({ onBackToHome, onOpenPrivacyModal }: HifzProduc
             </div>
 
             <div className="hifz-detail-hero__visual" aria-label="HIFZ ürün görseli">
-              <div className="hifz-detail-hero__disc" aria-hidden="true" />
               <HifzFeatureArt variant="detail" />
             </div>
           </div>

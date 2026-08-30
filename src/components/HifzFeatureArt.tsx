@@ -30,6 +30,30 @@ export const HifzFeatureArt = ({ variant = 'hero', className = '' }: HifzFeature
   const features = featureSets[variant];
   const isStudioHero = variant === 'hero';
 
+  if (variant === 'detail') {
+    return (
+      <div className={'hifz-feature-art hifz-feature-art--detail ' + className} role="group" aria-label="HIFZ ürün özellikleri">
+        <div className="hifz-feature-art__grid" aria-hidden="true" />
+        <span className="hifz-feature-art__line hifz-feature-art__line--one" aria-hidden="true" />
+        <span className="hifz-feature-art__line hifz-feature-art__line--two" aria-hidden="true" />
+        <div className="hifz-launch-board">
+          <div className="hifz-launch-board__identity">
+            <small>GÜL STUDIOS / PRODUCT 01</small>
+            <HifzIcon eager />
+            <strong>HIFZ</strong>
+            <span>Hafızlık sınav hazırlık</span>
+          </div>
+          <ol className="hifz-launch-board__features">
+            {features.map(({ label, icon: Icon }, index) => (
+              <li key={label}><em>0{index + 1}</em><Icon aria-hidden="true" /><b>{label}</b></li>
+            ))}
+          </ol>
+        </div>
+        <span className="hifz-feature-art__footer-note">ODAK · TEKRAR · İLERLEME</span>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`hifz-feature-art hifz-feature-art--${variant} ${className}`}
